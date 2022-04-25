@@ -20,7 +20,7 @@ Este ejercicio consiste en crear una API que simule el funcionamiento de una apl
 ## Endpoints
 
 * POST /user Registrar usuario ✅
-* GET /user/:id Devolver información de usuario
+* GET /user/:id Devolver información de usuario ✅
 * POST /login Login de usuario (devuelve token)
 * GET / Lista todos los tweets
 * POST / Permite crear un tweet (se necesita cabecera con token)
