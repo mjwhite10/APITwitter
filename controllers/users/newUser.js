@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const { generateError, validateUser } = require('../../helpers');
 const { createUserInDB } = require('../../db/users');
 
