@@ -9,7 +9,7 @@ const newUserSchema = Joi.object().keys({
       generateError('El campo email debe existir y ser un email válido', 400)
     ),
   password: Joi.string()
-    .min(8)
+    .min(4)
     .required()
     .error(
       generateError(

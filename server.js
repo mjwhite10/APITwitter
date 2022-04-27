@@ -1,8 +1,9 @@
+//Dependencias
 require('dotenv').config();
-
 const express = require('express');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
+
 //User controllers
 const { newUser } = require('./controllers/users/newUser');
 const { getUser } = require('./controllers/users/getUser');
@@ -30,9 +31,9 @@ app.post('/login', loginUser);
 
 //Rutas de tweets
 app.post('/', isUser, newTweet);
-app.get('/', isUser, listTweets);
+app.get('/', listTweets);
 app.get('/tweet/:id', getTweet);
-app.delete('/tweet/:id', deleteTweet);
+app.delete('/tweet/:id', isUser, deleteTweet);
 
 //Middleware para las peticiones 404
 app.use((req, res) => {

@@ -1,18 +1,14 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { generateError, validateUser } = require('../../helpers');
+const { generateError } = require('../../helpers');
 const { getUserByEmail } = require('../../db/users');
+const { newUserSchema } = require('../../validators/userValidators');
 const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
     //Validamos el body
-    const validation = validateUser(req.body);
-
-    if (validation.error) {
-      //Bad request
-      throw generateError(validation.error.message, 400);
-    }
+    await newUserSchema.validateAsync(req.body);
 
     //Recojemos los datos del user con el email
     const user = await getUserByEmail(email);
