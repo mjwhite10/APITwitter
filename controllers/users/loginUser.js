@@ -25,10 +25,11 @@ const loginUser = async (req, res, next) => {
     }
     //Creo el payload del token
     const payload = { id: user.id };
+
     //Firmo el token
     const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '30d' });
-    //Envio el token
 
+    //Envio el token
     res.send({
       status: 'ok',
       data: token,

@@ -1,15 +1,12 @@
-const { generateError, validateId } = require('../../helpers');
 const { getUserById } = require('../../db/users');
+const { generateError } = require('../../helpers');
 
 const getUser = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const validation = validateId(req.params);
-
-    if (validation.error) {
-      //Bad request
-      throw generateError(validation.error.message, 400);
+    if (!id || id <= 0) {
+      generateError('Es necesario pasar un id mayor que 0', 400);
     }
 
     const user = await getUserById(id);

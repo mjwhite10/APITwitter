@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const morgan = require('morgan');
-
+const fileUpload = require('express-fileupload');
 //User controllers
 const { newUser } = require('./controllers/users/newUser');
 const { getUser } = require('./controllers/users/getUser');
@@ -14,10 +14,14 @@ const { newTweet } = require('./controllers/tweets/newTweet');
 const { getTweet } = require('./controllers/tweets/getTweet');
 const { deleteTweet } = require('./controllers/tweets/deleteTweet');
 
+//Middlewares
+const { isUser } = require('./middlewares/isUser');
 const app = express();
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(fileUpload());
+app.use('/uploads', express.static('./uploads'));
 
 //Rutas de users
 app.post('/user', newUser);
@@ -25,8 +29,8 @@ app.get('/user/:id', getUser);
 app.post('/login', loginUser);
 
 //Rutas de tweets
-app.get('/', listTweets);
-app.post('/', newTweet);
+app.post('/', isUser, newTweet);
+app.get('/', isUser, listTweets);
 app.get('/tweet/:id', getTweet);
 app.delete('/tweet/:id', deleteTweet);
 
